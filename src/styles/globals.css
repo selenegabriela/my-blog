@@ -122,6 +122,15 @@ a {
   line-height: initial;
 }
 
+.searchIcon {
+  font-size: 12px
+}
+
+#comments-section {
+  scroll-margin-top: 250px;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
