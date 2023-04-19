@@ -38,8 +38,8 @@ const Navbar = () => {
                 <Link href='/'>Inicio</Link>
                 <Link href='#'>Posts</Link>
                 <Link href='#'>Nosotros</Link>
-                <Link href='#'>Suscripciones</Link>
-                <Link href='#comments-section'>Comentarios</Link>
+                <Link href='/create-post'>Add a Post</Link>
+                <Link href='/#comments-section'>Comentarios</Link>
               </div>
             </div>
           </div>

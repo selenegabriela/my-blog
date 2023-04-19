@@ -16,12 +16,12 @@ const CommentsSection = () => {
         <button type="submit" className="bg-white text-black py-2 px-4 rounded cursor-pointer hover:bg-gray-800">Post Comment</button>
       </form>
       <div className="space-y-6">
-        <div className="border border-black rounded p-4">
+        <div className="border border-yellow-500 rounded p-4">
           <h3 className="text-lg font-bold mb-2">John Doe</h3>
           <p className="mb-2">Great article, thanks for sharing!</p>
           <span className="text-gray-600 text-sm">Posted on 2023-04-12</span>
         </div>
-        <div className="border border-black rounded p-4">
+        <div className="border border-yellow-500 rounded p-4">
           <h3 className="text-lg font-bold mb-2">Jane Smith</h3>
           <p className="mb-2">I had a different experience, but appreciate your perspective.</p>
           <span className="text-gray-600 text-sm">Posted on 2023-04-11</span>
