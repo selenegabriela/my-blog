@@ -36,8 +36,8 @@ const Navbar = () => {
               <Link href="/" className="rubyk text-black ml-40">& Bella</Link>
               <div className="flex gap-4 mt-12 mr-14">
                 <Link href='/'>Inicio</Link>
-                <Link href='#'>Posts</Link>
-                <Link href='#'>Nosotros</Link>
+                <Link href='/posts'>Posts</Link>
+                <Link href='/'>Nosotros</Link>
                 <Link href='/create-post'>Add a Post</Link>
                 <Link href='/#comments-section'>Comentarios</Link>
               </div>
