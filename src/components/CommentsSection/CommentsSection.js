@@ -7,11 +7,11 @@ const CommentsSection = () => {
       <form className="mb-6">
         <div className="mb-4">
           <label htmlFor="name" className="block text-lg font-medium mb-1">Name:</label>
-          <input type="text" id="name" name="name" className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-black" required />
+          <input style={{color: 'black'}} type="text" id="name" name="name" className="w-full p-2 rounded focus:outline-none focus:border-yellow-500 border border-yellow-500" required />
         </div>
         <div className="mb-4">
           <label htmlFor="comment" className="block text-lg font-medium mb-1">Comment:</label>
-          <textarea id="comment" name="comment" rows="4" className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-black" required></textarea>
+          <textarea style={{color: 'black'}} id="comment" name="comment" rows="4" className="w-full p-2 rounded focus:outline-none focus:border-yellow-500 border border-yellow-500" required></textarea>
         </div>
         <button type="submit" className="bg-white text-black py-2 px-4 rounded cursor-pointer hover:bg-gray-800">Post Comment</button>
       </form>

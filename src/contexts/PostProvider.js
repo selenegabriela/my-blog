@@ -3,24 +3,31 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import PostContext from "./PostContext";
 
-const PostProvider = ({children}) => {
+const PostProvider = ({ children }) => {
+  const [posts, setPosts] = useState([]);
+  const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
 
-    const [posts, setPosts] = useState([]);
-    
-    useEffect(() => {
-        const postAsync = async()=> {
+  useEffect(() => {
+    const getPosts = async () => {
+      const { data } = await axios.get(`http://localhost:3001/blog-posts/?page=${pagination.page}`);
+      const { posts: newPosts, pagination: newPagination } = data;
+      setPosts(newPosts);
+      setPagination(newPagination);
+    };
+    getPosts();
+  }, [pagination.page]);
 
-            const {data} = await axios.get('http://localhost:3001/blog-posts/');
-            setPosts(data);
-        }
-        postAsync();
-    }, [])
+  const createPost = async (newPost) => {
+    await axios.post('http://localhost:3001/blog-posts/', newPost);
+  };
+
   return (
-    <PostContext.Provider value={posts}>
-        {children}
+    <PostContext.Provider value={{ posts, pagination, setPagination, createPost }}>
+      {children}
     </PostContext.Provider>
-  )
-}
+  );
+};
+
 
 export default PostProvider
   
