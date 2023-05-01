@@ -1,15 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import PostContext from "@/contexts/PostContext";
+import { faArrowAltCircleLeft, faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Posts = () => {
   const { posts, pagination, setPagination, deletePost } = useContext(PostContext);
+  const [ totalOfPages, setTotalOfPages ] = useState([]);
+
+  useEffect(() => {
+    setTotalOfPages([...Array(pagination.totalPages).keys()].map(x => x + 1));
+  }, [pagination.totalPages]);
+
 
   const handlePrevPage = () => {
     if(pagination.page > 1){
       setPagination({...pagination, page: pagination.page-1})
     }
+  }
+
+  const handlePage = (e) => {
+    setPagination({...pagination, page: e.target.id})
   }
 
   const handleDeletePost = (postId) => {
@@ -23,6 +35,7 @@ const Posts = () => {
   };
 
   return (
+    <>
     <div className="grid mt-60 mx-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {posts.map((post) => (
         <div
@@ -64,9 +77,33 @@ const Posts = () => {
           </div>
         </div>
       ))}
-      <button onClick={handlePrevPage}>Previous Page</button>
-      <button onClick={handleNextPage}>Next Page</button>
+
     </div>
+    <div className="width-5/5 flex gap-3 justify-center mt-5">
+    <button onClick={handlePrevPage} className="mx-1">
+  <FontAwesomeIcon icon={faArrowAltCircleLeft} className="w-4 h-4 text-gray-500 hover:text-yellow-500" />
+</button>
+      {totalOfPages?.map((page) => {
+        return (
+          <button
+            key={page}
+            id={page}
+            onClick={handlePage}
+            className={`mx-1 px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium ${
+              pagination.page === page
+                ? "text-yellow-500"
+                : "text-gray-500 hover:bg-gray-50"
+            }`}
+          >
+            {page}
+          </button>
+        );
+      })}
+      <button onClick={handleNextPage} className="mx-1">
+        <FontAwesomeIcon icon={faArrowAltCircleRight} className="w-4 h-4 text-gray-500 hover:text-yellow-500"/>
+      </button>
+    </div>
+    </>
   );
 };
 
