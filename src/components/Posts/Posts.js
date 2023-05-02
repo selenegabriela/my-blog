@@ -4,10 +4,14 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import PostContext from "@/contexts/PostContext";
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SuccessMessage from "../SuccesMessage/SuccessMessage";
+import { handleDeletePost } from "@/helpers/functions";
 
 const Posts = () => {
-  const { posts, pagination, setPagination, deletePost } = useContext(PostContext);
+  const { posts, setPosts, pagination, setPagination, deletePost } = useContext(PostContext);
   const [ totalOfPages, setTotalOfPages ] = useState([]);
+  const [ messageDelete, setMessageDelete ] = useState('');
+  const [ id, setId ] = useState(0);
 
   useEffect(() => {
     setTotalOfPages([...Array(pagination.totalPages).keys()].map(x => x + 1));
@@ -23,10 +27,7 @@ const Posts = () => {
   const handlePage = (e) => {
     setPagination({...pagination, page: e.target.id})
   }
-
-  const handleDeletePost = (postId) => {
-    deletePost(postId);
-  };
+  
 
   const handleNextPage = () => {
     if (pagination.page < pagination.totalPages) {
@@ -39,9 +40,11 @@ const Posts = () => {
     <div className="grid mt-60 mx-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {posts.map((post) => (
         <div
-          key={post.id}
-          className="bg-white rounded-lg overflow-hidden shadow-lg relative hover:border-4 hover:border-yellow-500"
+        key={post.id}
+        className="bg-white rounded-lg overflow-hidden shadow-lg relative hover:border-4 hover:border-yellow-500"
         >
+          
+          {id === post.id && messageDelete && <SuccessMessage>{messageDelete}</SuccessMessage>}
           <Link className="hover:opacity-90" href={`/posts/${post.id}`}>
           
               <img
@@ -65,7 +68,7 @@ const Posts = () => {
           <div className="absolute top-0 left-0 m-4 flex">
             <button
               className="p-2 rounded-full bg-transparent hover:bg-red-500 hover:text-white transition-colors duration-200"
-              onClick={() => handleDeletePost(post.id)}
+              onClick={() => handleDeletePost(post.id, setId, deletePost, setMessageDelete, posts, setPosts)}
             >
               <FaTrash />
             </button>
@@ -81,8 +84,8 @@ const Posts = () => {
     </div>
     <div className="width-5/5 flex gap-3 justify-center mt-5">
     <button onClick={handlePrevPage} className="mx-1">
-  <FontAwesomeIcon icon={faArrowAltCircleLeft} className="w-4 h-4 text-gray-500 hover:text-yellow-500" />
-</button>
+      <FontAwesomeIcon icon={faArrowAltCircleLeft} className="w-4 h-4 text-gray-500 hover:text-yellow-500" />
+    </button>
       {totalOfPages?.map((page) => {
         return (
           <button

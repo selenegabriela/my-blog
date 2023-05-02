@@ -21,8 +21,13 @@ const PostProvider = ({ children }) => {
     await axios.post('http://localhost:3001/blog-posts/', newPost);
   };
 
+  const deletePost = async(postId) => {
+    const {data: { message }} = await axios.delete(`http://localhost:3001/blog-posts/${postId}`)
+    return message;
+  }
+
   return (
-    <PostContext.Provider value={{ posts, pagination, setPagination, createPost }}>
+    <PostContext.Provider value={{ posts, setPosts, pagination, setPagination, createPost, deletePost }}>
       {children}
     </PostContext.Provider>
   );
