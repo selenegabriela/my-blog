@@ -17,6 +17,7 @@ const AddPost = () => {
   const [ success, setSuccess ] = useState('');
 
   const handleChange = (e) => {
+    console.log(newPost)
     setNewPost({...newPost, [e.target.name]: e.target.value}); 
   }
 

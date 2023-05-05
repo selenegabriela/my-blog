@@ -1,0 +1,64 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
+const EditPost = ({ post }) => {
+  const router = useRouter();
+
+  // const [image, setImage] = useState(post.image);
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
+  const [author, setAuthor] = useState(post.author);
+
+  console.log(post)
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here you would normally submit the updated post data to the server
+    // using a function from the post provider or some other API
+    // For the sake of this example, we will just console log the updated data
+    const updatedPost = {
+      id: post.id,
+      image,
+      title,
+      content,
+      author
+    };
+    console.log(updatedPost);
+    // After submitting the updated data, we redirect to the post page
+    // router.push(`/posts/${post.id}`);
+  };
+
+  const handleCancel = () => {
+    router.push(`/posts/${post.id}`);
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-4">Edit Post</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="image" className="block font-medium">Image URL</label>
+          <input type="text" id="image" name="image" onChange={(event) => setImage(event.target.value)} className="w-full py-2 px-4 border border-gray-300 rounded-lg" />
+        </div>
+        <div>
+          <label htmlFor="title" className="block font-medium">Title</label>
+          <input type="text" id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} className="w-full py-2 px-4 border border-gray-300 rounded-lg" />
+        </div>
+        <div>
+          <label htmlFor="content" className="block font-medium">Content</label>
+          <textarea id="content" name="content" value={content} onChange={(event) => setContent(event.target.value)} className="w-full py-2 px-4 border border-gray-300 rounded-lg" />
+        </div>
+        <div>
+          <label htmlFor="author" className="block font-medium">Author</label>
+          <input type="text" id="author" name="author" value={author} onChange={(event) => setAuthor(event.target.value)} className="w-full py-2 px-4 border border-gray-300 rounded-lg" />
+        </div>
+        <div className="flex justify-end">
+          <button type="button" onClick={handleCancel} className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-4">Cancel</button>
+          <button type="submit" className="bg-yellow-500 text-white px-4 py-2 rounded-lg">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default EditPost;

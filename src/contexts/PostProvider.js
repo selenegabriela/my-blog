@@ -26,8 +26,21 @@ const PostProvider = ({ children }) => {
     return message;
   }
 
+  const editPost = async(postId) => {
+    const {data} = await axios.edit(`http://localhost:3001/blog-posts/${postId}`, {
+      body
+    })
+  }
+
   return (
-    <PostContext.Provider value={{ posts, setPosts, pagination, setPagination, createPost, deletePost }}>
+    <PostContext.Provider value={{ 
+      posts, 
+      setPosts, 
+      pagination, 
+      setPagination, 
+      createPost, 
+      deletePost, 
+      }}>
       {children}
     </PostContext.Provider>
   );

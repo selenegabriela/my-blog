@@ -72,7 +72,7 @@ const Posts = () => {
             >
               <FaTrash />
             </button>
-            <Link href={`/posts/${post.id}/edit`}>
+            <Link href={`/posts/edit/${post.id}`}>
               <button className="p-2 ml-2 rounded-full bg-transparent hover:bg-yellow-500 hover:text-white transition-colors duration-200">
                 <FaEdit />
               </button>
