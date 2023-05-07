@@ -10,7 +10,7 @@ export const handleDeletePost = async (postId, setId, deletePost, setMessageDele
       await deletePost(postId);
       
       const updatedPosts = posts.filter(post => post.id !== postId);
-      setId(postId);
+      setId?.setId(postId);
       
       setMessageDelete('Post eliminado correctamente.');
       setTimeout(() => {

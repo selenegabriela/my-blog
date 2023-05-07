@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import EditPost from '@/components/EditPost/EditPost';
+import Layout from '@/components/Layout/Layout';
 
 export async function getServerSideProps(context) {
     const { id } = context.query;
@@ -18,10 +19,10 @@ export async function getServerSideProps(context) {
 
 const PostEditPage = ({data}) => {
   return (
-    <>
+    <Layout notComments>
     
       <EditPost post={data} />
-    </>
+    </Layout>
   )
 }
 
