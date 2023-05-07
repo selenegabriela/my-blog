@@ -14,10 +14,10 @@ const EditPost = ({ post }) => {
   const [content, setContent] = useState(post.content);
   const [author, setAuthor] = useState(post.author);
 
-  const [ messageDelete, setMessageDelete ] = useState('');
+  const [ messageSuccess, setMessageSuccess ] = useState('');
 
   const handleDelete = async() => {
-    await handleDeletePost(post.id, null, deletePost, setMessageDelete, posts, setPosts)
+    await handleDeletePost(post.id, null, deletePost, setMessageSuccess, posts, setPosts)
     router.push('/posts')
   }
 
@@ -36,7 +36,11 @@ const EditPost = ({ post }) => {
     console.log(updatedPost)
     await axios.put(`http://localhost:3001/blog-posts/${post.id}`, updatedPost)
     // After submitting the updated data, we redirect to the post page
-    router.push(`/posts/${post.id}`);
+    setMessageSuccess('Los cambios se actualizaron de manera exitosa');
+    setTimeout(() => {
+      setMessageSuccess('')
+      router.push(`/posts/${post.id}`);
+    }, 3000)
   };
 
   const handleCancel = () => {
@@ -46,7 +50,7 @@ const EditPost = ({ post }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 mt-44">
       <h1 className="text-3xl font-bold mb-4 ">Edit Post</h1>
-      {messageDelete && <SuccessMessage>{messageDelete}</SuccessMessage>}
+      {messageSuccess && <SuccessMessage>{messageSuccess}</SuccessMessage>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="image" className="block font-medium">Image URL</label>

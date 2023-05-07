@@ -16,7 +16,6 @@ export const handleDeletePost = async (postId, setId, deletePost, setMessageDele
       setTimeout(() => {
         setMessageDelete('');
         setPosts(updatedPosts);
-
       }, 2000);
     } catch (error) {
       setMessageDelete('Error al eliminar el post. Inténtalo de nuevo más tarde.');
