@@ -1,8 +1,25 @@
+import PostContext from "@/contexts/PostContext"
+import SearchModal from "@/modals/SearchModal/SearchModal"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
+import { useContext, useState } from "react"
+import { FiSearch } from 'react-icons/fi';
 
 const Navbar = () => {
+  const { handleSearch, searchResults, isModalOpen } = useContext(PostContext);
+
+  const [ searchWord, setSearchWord ] = useState('');
+
+  
+  const handleSearchPost = async() => {
+    await handleSearch(searchWord);
+    setSearchWord('')
+  }
+
+  const handleChange = e => {
+    setSearchWord(e.target.value);
+  }
   return (
     <>
       <Head>
@@ -22,13 +39,23 @@ const Navbar = () => {
               height={150}
               className="absolute -ml-16 left-2/4 -translate-y-20 rounded-full border-solid border-4 border-yellow-400 "
             />
-            <div className="absolute inline left-3/4 mt-6 ml-24">  
-              <i className="absolute fa-solid fa-magnifying-glass mt-1 ml-1"></i>
-              <input 
+            <div className="absolute flex top-0 right-3 gap-2 mt-6 ml-24">  
+              {/* <i className="absolute fa-solid fa-magnifying-glass mt-1 ml-1"></i> */}
+              <input
+                onChange={e => handleChange(e)}
+                value={searchWord}
                 className=" border-double rounded pl-6"
                 type='text'
                 placeholder="Buscar"
               />
+              <button
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-yellow-400 text-white hover:bg-gray-500 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                onClick={handleSearchPost}
+              >
+                <FiSearch size={24} />
+              </button>
+      <SearchModal results={searchResults} isModalOpen={isModalOpen}/>
+
             </div>
           </div>
           <div className="w-full bg-white pb-0 pt-2 shadow-md border-solid border-t-4 border-r-4 border-yellow-400 rounded-b-md">

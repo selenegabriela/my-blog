@@ -7,6 +7,9 @@ const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
 
+  const [searchResults, setSearchResults] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     const getPosts = async () => {
       const { data } = await axios.get(`http://localhost:3001/blog-posts/?page=${pagination.page}`);
@@ -26,14 +29,26 @@ const PostProvider = ({ children }) => {
     return message;
   }
 
+  const handleSearch = async (searchWord) => {
+    // execute Sequelize query to search for posts
+    const { data } = await axios(`http://localhost:3001/blog-posts/search?q=${searchWord}`);
+    setSearchResults(data);
+    setIsModalOpen(true);
+  };
+
   return (
     <PostContext.Provider value={{ 
-      posts, 
+      posts,
       setPosts, 
       pagination, 
       setPagination, 
       createPost, 
-      deletePost, 
+      deletePost,
+      handleSearch,
+      searchResults,
+      isModalOpen,
+      setIsModalOpen,
+      setSearchResults
       }}>
       {children}
     </PostContext.Provider>
